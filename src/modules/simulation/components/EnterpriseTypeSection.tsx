@@ -1,5 +1,5 @@
 import { Grid } from '@digico/ui'
-import { RadioCard } from '@simulation/components/RadioCard'
+import { InputCard } from '@simulation/components/InputCard'
 import { useEffect } from 'react'
 
 type Props = {
@@ -14,11 +14,11 @@ export const EnterpriseTypeSection = ({ onValid, setNextVisible }: Props) => {
     }, [setNextVisible]);
     
     const types = [
-        <RadioCard id={'magasin'} label={'Magasin'} value={'magasin'} name={'enterpriseType'} onClick={onValid}/>,
-        <RadioCard id={'garage'} label={'Garage'} value={'garage'} name={'enterpriseType'} onClick={onValid}/>,
-        <RadioCard id={'santé'} label={'Soin de santé'} value={'santé'} name={'enterpriseType'} onClick={onValid}/>,
-        <RadioCard id={'horeca'} label={'Horeca'} value={'horeca'} name={'enterpriseType'} onClick={onValid}/>,
-        <RadioCard id={'production'} label={'Production'} value={'production'} name={'enterpriseType'} onClick={onValid}/>
+        <InputCard id={'magasin'} label={'Magasin'} value={'magasin'} name={'enterpriseType'} onClick={onValid}/>,
+        <InputCard id={'garage'} label={'Garage'} value={'garage'} name={'enterpriseType'} onClick={onValid}/>,
+        <InputCard id={'santé'} label={'Soin de santé'} value={'santé'} name={'enterpriseType'} onClick={onValid}/>,
+        <InputCard id={'horeca'} label={'Horeca'} value={'horeca'} name={'enterpriseType'} onClick={onValid}/>,
+        <InputCard id={'production'} label={'Production'} value={'production'} name={'enterpriseType'} onClick={onValid}/>
     ];
     
     return(

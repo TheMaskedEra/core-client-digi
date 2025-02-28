@@ -1,4 +1,4 @@
-import { RadioCard } from '@simulation/components/RadioCard'
+import { InputCard } from '@simulation/components/InputCard'
 import { useEffect } from 'react'
 
 type Props = {
@@ -16,8 +16,8 @@ export const InstallationTypeSection = ({ onValid, setNextVisible }: Props) => {
         <div>
             <h2> {"Type d'installation "} </h2>
             <div className={"flex"}>
-                <RadioCard id={'particulier'} label={'Un particulier'} value={'particulier'} name={'installationType'} onClick={onValid}/>
-                <RadioCard id={'enterprise'} label={'Une entreprise'} value={'enterprise'} name={'installationType'} onClick={onValid}/>
+                <InputCard id={'particulier'} label={'Un particulier'} value={'particulier'} name={'installationType'} onClick={onValid}/>
+                <InputCard id={'enterprise'} label={'Une entreprise'} value={'enterprise'} name={'installationType'} onClick={onValid}/>
             </div>
         </div>
     )

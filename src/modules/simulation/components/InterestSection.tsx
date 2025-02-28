@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-import { OptionCard } from '@simulation/components/OptionCard'
+import { InputCard } from '@simulation/components/InputCard'
 
 type Props = {
     setNextVisible: (value: boolean) => void,
@@ -13,7 +13,7 @@ export const InterestSection = ({ setNextVisible }: Props) => {
     }, [setNextVisible]);
 
     return (
-        <OptionCard
+        <InputCard
             id={'id'}
             label={'Panneaux photovoltaïques'}
             value={'panneaux'}
@@ -21,6 +21,7 @@ export const InterestSection = ({ setNextVisible }: Props) => {
             onClick={function (): void {
                 throw new Error('Function not implemented.')
             }}
+            type={"checkbox"}
         />
     )
 };
