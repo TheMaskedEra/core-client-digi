@@ -1,51 +1,45 @@
 import { useState } from "react";
-import { Button, Form } from '@digico/ui'
-import { useForm } from 'react-hook-form'
+import { useForm } from "react-hook-form";
+import { Form } from "@digico/ui";
+
+import { createSimulation } from "@simulation/services";
+import { SimulationType } from "@simulation/types/simulation";
+
+import { EnterpriseTypeSection } from '@simulation/components/EnterpriseTypeSection'
+import { InstallationTypeSection } from '@simulation/components/InstallationTypeSection'
+import { StepNavigation } from '@simulation/components/StepNavigation'
+import { InterestSection } from '@simulation/components/InterestSection'
 
 export default function SimulationForm() {
-    const form = useForm()
-    let step = 0;
-
-    const content = <Form.Field name={`name`} id={'name'} label="Nom" placeholder={'Vanden Broeck'}/>
-    const content2 = <Form.Field name={`firstname`} id={'firstname'} label="Prénom" placeholder={'Alexis'}/>
-    const content3 = <Form.Field name={`age`} type={'number'} id={'age'} label="Âge" placeholder={'23'}/>
-
-    const contentArray = [content, content2, content3]
-    const [currentContent, setContent] = useState(contentArray[0]);
-    const size = contentArray.length -1;
+    const form = useForm<SimulationType>();
+    const [isNextVisible, setNextVisible] = useState(true);
 
     const handleNext = () => {
-        step = step !== size ? step + 1 : size;
-        setContent(() => contentArray[step])
-        setButtons(() => {
-           if (step === size) return finalNav;
-           return midNav;
-        });
-    }
+        setCurrentIndex(prevStep => Math.min(prevStep + 1, steps.length - 1));
+    };
 
     const handleBack = () => {
-        step = step !== 0 ? step - 1 : 0;
-        setContent(() => contentArray[step]);
-        setButtons(() => {
-            if (step === 0) return firstNav;
-            return midNav;
-        });
-    }
+        setCurrentIndex(prevStep => Math.max(prevStep - 1, 0));
+    };
 
-    const firstNav = <Button type={'button'} onClick={handleNext}>Next</Button>;
-    const midNav =
-        <div>
-            <Button type={'button'} onClick={handleBack}>Back</Button>
-            <Button type={'button'} onClick={handleNext}>Next</Button>
-        </div>;
-    const finalNav =
-            <Button type={'submit'}>Submit</Button>;
-    const [buttons, setButtons] = useState(firstNav);
+    const handleSubmit = (data: SimulationType) => {
+        console.log(data);
+        createSimulation(data).then(() => console.log("sent"));
+    };
+
+    const steps = [
+        <InstallationTypeSection onValid={handleNext} setNextVisible={setNextVisible}/>,
+        <EnterpriseTypeSection onValid={handleNext} setNextVisible={setNextVisible}/>,
+        <InterestSection setNextVisible={setNextVisible}/>
+    ];
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const size = steps.length;
 
     return (
-      <Form useForm={form}>
-          {currentContent}
-          {buttons}
-      </Form>
-    );
+        <Form useForm={form} onSubmit={handleSubmit}>
+            { steps[currentIndex] }
+
+            <StepNavigation step={currentIndex} totalSteps={size} onNext={handleNext} onBack={handleBack} isNextVisible={isNextVisible}/>
+        </Form>
+    )
 }
