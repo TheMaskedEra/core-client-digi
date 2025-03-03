@@ -1,24 +1,32 @@
+import { installations } from '@simulation/installation'
+
 import { InputCard } from '@simulation/components/InputCard'
-import { useEffect } from 'react'
+import { StepNavigation } from '@simulation/components/StepNavigation'
 
 type Props = {
     onValid: () => void,
-    setNextVisible: (visible: boolean) => void
 }
 
-export const InstallationTypeSection = ({ onValid, setNextVisible }: Props) => {
+export const InstallationTypeSection = ({ onValid }: Props) => {
 
-    useEffect(() => {
-        setNextVisible(false);
-    }, [setNextVisible])
 
     return(
         <div>
             <h2> {"Type d'installation "} </h2>
             <div className={"flex"}>
-                <InputCard id={'particulier'} label={'Un particulier'} value={'particulier'} name={'installationType'} onClick={onValid}/>
-                <InputCard id={'enterprise'} label={'Une entreprise'} value={'enterprise'} name={'installationType'} onClick={onValid}/>
+                {installations.map((installation) => (
+                    <InputCard
+                        key={installation.id}
+                        id={installation.id}
+                        label={installation.label}
+                        value={installation.value}
+                        name="installationType"
+                        onClick={onValid}
+                    />
+                ))}
             </div>
+
+            <StepNavigation showSkip={false} showBack={false} showSubmit={false}/>
         </div>
     )
 }

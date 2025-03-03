@@ -4,11 +4,11 @@ import { EnterpriseTypeSection } from '@simulation/components/EnterpriseTypeSect
 import { InstallationTypeSection } from '@simulation/components/InstallationTypeSection'
 import { InterestSection } from '@simulation/components/InterestSection'
 
-const simulationMap: NodeMap = {
+export const simulationMap: NodeMap = {
     nodes: {
-        installation: { id: "installation", component: InstallationTypeSection },
-        enterpriseType: { id: "enterpriseType", component: EnterpriseTypeSection },
-        interest: { id: "interest", component: InterestSection }
+        installation: { component: InstallationTypeSection },
+        enterpriseType: { component: EnterpriseTypeSection },
+        interest: { component: InterestSection }
     },
     paths: {
         installation: [

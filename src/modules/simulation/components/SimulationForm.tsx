@@ -1,25 +1,35 @@
-import { useState } from "react";
+import React, { useState } from 'react'
 import { useForm } from "react-hook-form";
 import { Form } from "@digico/ui";
+import { NodeNavigator } from '@simulation/DAGmap/NodeNavigator'
+import { simulationMap } from '@simulation/DAGmap/SimulationMap'
 
 import { createSimulation } from "@simulation/services";
 import { SimulationType } from "@simulation/types/simulation";
 
-import { EnterpriseTypeSection } from '@simulation/components/EnterpriseTypeSection'
-import { InstallationTypeSection } from '@simulation/components/InstallationTypeSection'
-import { StepNavigation } from '@simulation/components/StepNavigation'
-import { InterestSection } from '@simulation/components/InterestSection'
-
 export default function SimulationForm() {
     const form = useForm<SimulationType>();
-    const [isNextVisible, setNextVisible] = useState(true);
+
+    const firstNodeId = 'installation'
+    const navigator = new NodeNavigator(simulationMap);
+    const [currentNode, setCurrentNode] = useState(navigator.getNode(firstNodeId));
+    const [history, setHistory] = useState([firstNodeId]);
+    const [currentNodeId, setCurrentNodeId] = useState(firstNodeId);
 
     const handleNext = () => {
-        setCurrentIndex(prevStep => Math.min(prevStep + 1, steps.length - 1));
+        const nodeId = navigator.getNextNodeId(currentNodeId);
+        setCurrentNodeId(nodeId);
+        const node = navigator.getNode(nodeId);
+        setCurrentNode(node);
+        setHistory(prev => [...prev, nodeId]);
     };
 
     const handleBack = () => {
-        setCurrentIndex(prevStep => Math.max(prevStep - 1, 0));
+        setHistory(prev =>  prev.slice(0, -1));
+        const nodeId = history[history.length - 2]; // -2 car la suppression n'est pas encore acquise
+        setCurrentNodeId(nodeId);
+        const node = navigator.getNode(nodeId);
+        setCurrentNode(node);
     };
 
     const handleSubmit = (data: SimulationType) => {
@@ -27,19 +37,13 @@ export default function SimulationForm() {
         createSimulation(data).then(() => console.log("sent"));
     };
 
-    const steps = [
-        <InstallationTypeSection onValid={handleNext} setNextVisible={setNextVisible}/>,
-        <EnterpriseTypeSection onValid={handleNext} setNextVisible={setNextVisible}/>,
-        <InterestSection setNextVisible={setNextVisible}/>
-    ];
-    const [currentIndex, setCurrentIndex] = useState(0);
-    const size = steps.length;
-
     return (
         <Form useForm={form} onSubmit={handleSubmit}>
-            { steps[currentIndex] }
-
-            <StepNavigation step={currentIndex} totalSteps={size} onNext={handleNext} onBack={handleBack} isNextVisible={isNextVisible}/>
+            { React.createElement(currentNode.component, { onValid: handleNext, onBack: handleBack }) }
+            { /*TODO Faire le render dans le Map car sinon peut y avoir soucis si ça demande des attributs différents */}
         </Form>
     )
 }
+
+//TODO LA collection demande une clef pour les reacts node  -> enregistrer la clef dans les cookies, enregistrer
+// l'état du form au changement avec le next/skip

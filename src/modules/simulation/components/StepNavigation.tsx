@@ -1,27 +1,31 @@
 import { Button } from "@digico/ui";
 
 interface StepNavigationProps {
-    step: number
-    totalSteps: number;
-    onNext: () => void;
-    onBack: () => void;
-    isNextVisible: boolean
+    showSkip: boolean
+    onSkip?: () => void;
+    showBack: boolean;
+    onBack?: () => void;
+    showSubmit: boolean;
+    onSubmit?: () => void;
 }
 
-export const StepNavigation = ({ step, totalSteps, onNext, onBack, isNextVisible }: StepNavigationProps) => {
+export const StepNavigation = ({ showSkip, onSkip, showBack, onBack, showSubmit, onSubmit }: StepNavigationProps) => {
+
+    if (showBack && !onBack) throw new Error("Show back called with no reaction applied");
+    if (showSkip && !onSkip) throw new Error("Show skip called with no reaction applied");
+    if (showSubmit && !onSubmit) throw new Error("Show submit called with no reaction applied");
 
     return (
         <div>
-            {step > 0 && <Button type="button" onClick={onBack}>Back</Button>}
+            { showBack && <Button type="button" onClick={onBack}>Back</Button>}
 
-            {isNextVisible && step < totalSteps - 1 && (
-                <Button type="button" onClick={onNext}>Next</Button>
+            { showSkip && (
+                <Button type="button" onClick={onSkip}>Skip</Button>
             )}
 
-            {isNextVisible && step === totalSteps - 1 && (
+            { showSubmit && (
                 <Button type="submit">Submit</Button>
             )}
-
         </div>
     );
 }

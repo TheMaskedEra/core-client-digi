@@ -1,63 +1,56 @@
+import { Node } from '@simulation/DAGmap/Node'
 import { NodeMap } from '@simulation/DAGmap/NodeMap'
 
-class NodeNavigator {
-    private currentNodeId: string
+export class NodeNavigator {
     private data: any //TODO Amélioration possible pour plus tard c'est de typer data.
     private readonly map: NodeMap
-    private readonly history: string[]
 
     //TODO Changer le updatede data, si on back plusieurs fois il y a des données fantomes dans data
 
-    constructor(initialNodeId: string, nodeMap: NodeMap) {
-        this.currentNodeId = initialNodeId
-        this.history = [initialNodeId]
+    constructor(nodeMap: NodeMap) {
         this.data = {}
         this.map = nodeMap
     }
 
-    getCurrentNode(): string {
-        return this.currentNodeId
-    }
-
-    getHistory(): string[] {
-        return this.history
+    getNode(nodeId: string): Node {
+        return this.map.nodes[nodeId];
     }
 
     updateData(newData: any) {
         this.data = { ...this.data, ...newData }
     }
 
-    private getNodePaths() {
-        return this.map.paths[this.currentNodeId];
+    private getNodePaths(nodeId: string) {
+        return this.map.paths[nodeId];
     }
 
-    getNodePathIds(): string[] {
-        return this.getNodePaths().map((path) => {
+    getNodePathIds(nodeId: string): string[] {
+        return this.getNodePaths(nodeId).map((path) => {
             return path.next
         })
     }
 
-    canGoNext(pathId: string): boolean {
-        return this.getNodePaths().some((path) =>
+    canGoNext(nodeId: string, pathId: string): boolean {
+        return this.getNodePaths(nodeId).some((path) =>
             path.next === pathId && (!path.condition || path.condition(this.data))
         );
     }
 
-    goNext(pathId: string): boolean {
-        if (!this.canGoNext(pathId)) return false;
+    getNextNodeId(nodeId: string): string {
+        console.log(nodeId);
+        const children = this.map.paths[nodeId];
+        const conditionPaths = children.filter(item => item.condition);
+        const noConditionsPaths = children.filter(item => !item.condition);
 
-        this.history.push(pathId);
-        this.currentNodeId = pathId;
-
-        return true;
-    }
-
-    goBack(): boolean {
-        if (this.history.length > 1) {
-            this.history.pop()
-            this.currentNodeId = this.history[this.history.length - 1]
-            return true
+        for (const conditionedChild of conditionPaths) {
+            const condition = conditionedChild.condition;
+            if (condition === undefined) { //TODO refaire ce code
+                throw new Error("Not implemented yet.");
+            }
         }
-        return false
+
+        if (noConditionsPaths.length > 1) throw new Error("Paths are too ambiguous");
+
+        return noConditionsPaths[0].next;
     }
 }
