@@ -37,15 +37,15 @@ export class NodeNavigator {
     }
 
     getNextNodeId(nodeId: string): string {
-        console.log(nodeId);
         const children = this.map.paths[nodeId];
         const conditionPaths = children.filter(item => item.condition);
         const noConditionsPaths = children.filter(item => !item.condition);
 
         for (const conditionedChild of conditionPaths) {
             const condition = conditionedChild.condition;
-            if (condition === undefined) { //TODO refaire ce code
-                throw new Error("Not implemented yet.");
+
+            if (condition!()) {
+                return conditionedChild.next;
             }
         }
 

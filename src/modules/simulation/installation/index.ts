@@ -2,9 +2,9 @@ import { Installation } from '@simulation/installation/type'
 
 export const installations: Installation[] = [
     {
-        id: "particulier",
+        id: "private",
         label: "Un particulier",
-        value: "particulier"
+        value: "private"
     },
     {
         id: "enterprise",

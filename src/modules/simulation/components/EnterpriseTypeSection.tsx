@@ -1,19 +1,13 @@
-import { useEffect } from 'react'
 import { Grid } from '@digico/ui'
 import { enterprises } from '@simulation/enterprise'
 
 import { InputCard } from '@simulation/components/InputCard'
 
 type Props = {
-    onValid: () => void,
-    setNextVisible: (value: boolean) => void
+    onValid: () => void
 }
 
-export const EnterpriseTypeSection = ({ onValid, setNextVisible }: Props) => {
-
-    useEffect(() => {
-        setNextVisible(false);
-    }, [setNextVisible]);
+export const EnterpriseTypeSection = ({ onValid }: Props) => {
     
     return(
         <div>

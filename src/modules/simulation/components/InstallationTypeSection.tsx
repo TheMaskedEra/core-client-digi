@@ -4,7 +4,7 @@ import { InputCard } from '@simulation/components/InputCard'
 import { StepNavigation } from '@simulation/components/StepNavigation'
 
 type Props = {
-    onValid: () => void,
+    onValid: () => void;
 }
 
 export const InstallationTypeSection = ({ onValid }: Props) => {
@@ -21,7 +21,10 @@ export const InstallationTypeSection = ({ onValid }: Props) => {
                         label={installation.label}
                         value={installation.value}
                         name="installationType"
-                        onClick={onValid}
+                        onClick={() => {
+                            localStorage.setItem("installationType", installation.value)
+                            onValid();
+                        }}
                     />
                 ))}
             </div>

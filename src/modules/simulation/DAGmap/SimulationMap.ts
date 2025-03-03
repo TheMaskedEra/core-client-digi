@@ -14,10 +14,11 @@ export const simulationMap: NodeMap = {
         installation: [
             {
                 next: "enterpriseType",
-                condition: (data) => data.installationType === "enterprise"
+                condition: () => localStorage.getItem("installationType") === "enterprise"
             },
             {
                 next: "interest",
+                condition: () => localStorage.getItem("installationType") === "private"
             }
         ],
         enterpriseType: [
