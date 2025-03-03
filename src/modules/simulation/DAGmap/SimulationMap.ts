@@ -2,6 +2,7 @@ import { NodeMap } from '@simulation/DAGmap/NodeMap'
 
 import { ConsumptionSection } from '@simulation/components/ConsumptionSection'
 import { EnterpriseTypeSection } from '@simulation/components/EnterpriseTypeSection'
+import ExistingInstallationSection from '@simulation/components/ExistingInstallationSection'
 import { InstallationTypeSection } from '@simulation/components/InstallationTypeSection'
 import { InterestSection } from '@simulation/components/InterestSection'
 
@@ -10,7 +11,8 @@ export const simulationMap: NodeMap = {
         installation: { component: InstallationTypeSection },
         enterpriseType: { component: EnterpriseTypeSection },
         interest: { component: InterestSection },
-        consumption: { component: ConsumptionSection }
+        consumption: { component: ConsumptionSection },
+        existingInstallation: { component: ExistingInstallationSection }
     },
     paths: {
         installation: [
@@ -33,5 +35,10 @@ export const simulationMap: NodeMap = {
                 next: 'consumption'
             },
         ],
+        consumption: [
+            {
+                next: 'existingInstallation'
+            },
+        ]
     }
 }
