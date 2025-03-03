@@ -39,7 +39,7 @@ export default function SimulationForm() {
 
     return (
         <Form useForm={form} onSubmit={handleSubmit}>
-            { React.createElement(currentNode.component, { onValid: handleNext, onBack: handleBack }) }
+            { React.createElement(currentNode.component, { onValid: handleNext, onBack: handleBack, onSkip: handleNext }) }
             { /*TODO Faire le render dans le Map car sinon peut y avoir soucis si ça demande des attributs différents */}
         </Form>
     )
@@ -47,3 +47,5 @@ export default function SimulationForm() {
 
 //TODO LA collection demande une clef pour les reacts node  -> enregistrer la clef dans les cookies, enregistrer
 // l'état du form au changement avec le next/skip
+
+//TODO Sur le back des boutons, écraser les valeurs de la question d'avant ?

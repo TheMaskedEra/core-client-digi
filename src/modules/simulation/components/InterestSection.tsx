@@ -1,26 +1,33 @@
+import { interests } from '@simulation/interest'
+
 import { InputCard } from '@simulation/components/InputCard'
 import { StepNavigation } from '@simulation/components/StepNavigation'
 
 type Props = {
     onBack: () => void;
+    onSkip: () => void;
 };
 
-export const InterestSection = ({ onBack }: Props) => {
+export const InterestSection = ({ onBack, onSkip }: Props) => {
 
     return (
         <>
-            <InputCard
-                id={'id'}
-                label={'Panneaux photovoltaïques'}
-                value={'panneaux'}
-                name={'interests'}
-                onClick={function (): void {
-                    throw new Error('Function not implemented.')
-                }}
-                type={'checkbox'}
-            />
+            {interests.map((interest) => (
+                    <InputCard
+                        key={interest.id}
+                        id={interest.id}
+                        label={interest.label}
+                        value={interest.value}
+                        name={"interests"}
+                        onClick={() => {
 
-            <StepNavigation showSkip={false} showBack={true} onBack={ onBack } showSubmit={false} />
+                        }}
+                        type={'checkbox'}
+                    />
+            ))
+            }
+
+            <StepNavigation showSkip={true} onSkip={ onSkip} showBack={true} onBack={ onBack } showSubmit={false} />
         </>
     )
 };

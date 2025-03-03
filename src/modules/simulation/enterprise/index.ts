@@ -26,4 +26,14 @@ export const enterprises: Enterprise[] = [
         label: "Production",
         value: "production"
     },
+    {
+        id: "workshop",
+        label: "Atelier",
+        value: "workshop"
+    },
+    {
+        id: "other",
+        label: "Autre",
+        value: "other"
+    },
 ];
