@@ -20,7 +20,7 @@ export const InterestSection = ({ onBack, onSkip }: Props) => {
                         value={interest.value}
                         name={"interests"}
                         onClick={() => {
-
+                            console.log("Gérer les checkbox"); //TODO
                         }}
                         type={'checkbox'}
                     />
