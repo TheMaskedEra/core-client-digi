@@ -1,4 +1,4 @@
-import { radio_types } from '@simulation/consumption'
+import { radio_types } from '@simulation/components/section/consumption/index'
 
 import { InputCard } from '@simulation/components/InputCard'
 import { StepNavigation } from '@simulation/components/StepNavigation'

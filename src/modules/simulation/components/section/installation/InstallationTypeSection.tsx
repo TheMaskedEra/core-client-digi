@@ -1,4 +1,4 @@
-import { installations } from '@simulation/installation'
+import { installations } from '@simulation/components/section/installation/index'
 
 import { InputCard } from '@simulation/components/InputCard'
 import { StepNavigation } from '@simulation/components/StepNavigation'

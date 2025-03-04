@@ -1,4 +1,4 @@
-import RadioType from '@simulation/consumption/radio-type'
+import RadioType from '@simulation/components/section/consumption/radio-type'
 
 export const radio_types: RadioType[] = [
     {

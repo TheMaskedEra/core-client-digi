@@ -1,4 +1,4 @@
-import { interests } from '@simulation/interest'
+import { interests } from '@simulation/components/section/interest/index'
 
 import { InputCard } from '@simulation/components/InputCard'
 import { StepNavigation } from '@simulation/components/StepNavigation'

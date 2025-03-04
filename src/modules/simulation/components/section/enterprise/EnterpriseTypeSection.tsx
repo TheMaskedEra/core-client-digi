@@ -1,5 +1,5 @@
 import { Grid } from '@digico/ui'
-import { enterprises } from '@simulation/enterprise'
+import { enterprises } from '@simulation/components/section/enterprise/index'
 
 import { InputCard } from '@simulation/components/InputCard'
 import { StepNavigation } from '@simulation/components/StepNavigation'

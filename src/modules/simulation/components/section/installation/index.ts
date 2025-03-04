@@ -1,4 +1,4 @@
-import { Installation } from '@simulation/installation/type'
+import { Installation } from '@simulation/components/section/installation/type'
 
 export const installations: Installation[] = [
     {

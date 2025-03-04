@@ -1,4 +1,4 @@
-import { Interest } from '@simulation/interest/type'
+import { Interest } from '@simulation/components/section/interest/type'
 
 export const interests: Interest[] = [
     {
