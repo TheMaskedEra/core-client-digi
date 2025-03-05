@@ -7,6 +7,9 @@ import { InstallationTypeSection } from '@simulation/components/section/installa
 import { InterestSection } from '@simulation/components/section/interest/InterestSection'
 import InstallationInformationSection
     from '@simulation/components/section/installationInformation/InstallationInformationSection'
+import HourPerDaySection from '@simulation/components/section/hourPerDay/HourPerDaySection'
+import ElectricalNetworkSection from '@simulation/components/section/electricalNetwork/ElectricalNetworkSection'
+import HouseOrientationSection from '@simulation/components/section/houseOrientation/HouseOrientationSection'
 
 export const simulationMap: NodeMap = {
     nodes: {
@@ -16,6 +19,9 @@ export const simulationMap: NodeMap = {
         consumption: { component: ConsumptionSection },
         existingInstallation: { component: ExistingInstallationSection },
         installationInformation: { component: InstallationInformationSection },
+        hourPerDay: { component: HourPerDaySection },
+        networkType: { component: ElectricalNetworkSection },
+        houseOrientation : { component: HouseOrientationSection }
     },
     paths: {
         installation: [
@@ -48,5 +54,25 @@ export const simulationMap: NodeMap = {
                 next: 'installationInformation'
             },
         ],
+        installationInformation: [
+            {
+                next: 'hourPerDay'
+            },
+        ],
+        hourPerDay: [
+            {
+                next: 'networkType'
+            },
+        ],
+        networkType: [
+            {
+                next: 'houseOrientation'
+            }
+        ],
+        houseOrientation: [
+            {
+                next: ''
+            }
+        ]
     }
 }
